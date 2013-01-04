@@ -1,0 +1,13 @@
+@import 'nib/gradients'
+@import 'nib/vendor'
+
+body
+    background #fff
+
+    > div
+        border-radius 10px
+        width 80%
+        height 80%
+        background-color #c7deef
+        background-image linear-gradient(top, #d2e5f3, #b1cfe7)
+        box-shadow 2px 2px 4px rgba(0, 0, 0, .1) inset, 2px 2px 0 #fff
