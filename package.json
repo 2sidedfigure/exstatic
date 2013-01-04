@@ -1,13 +1,28 @@
 {
   "name": "exstatic",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Express middleware to help with the bundling, minifying, obfuscating and versioning of static assets for delivery over a CDN.",
-  "author": { "name": "± ryan" },
+  "author": {
+    "name": "± ryan"
+  },
   "main": "./lib/StaticAssetManager",
   "dependencies": {
-      "uglify-js": "1.x.x",
-      "underscore": "1.x.x"
+    "async": "0.1.x",
+    "uglify-js": "1.x.x",
+    "underscore": "1.x.x"
   },
-  "engines": { "node": ">= 0.6.0" },
-  "keywords": ["express", "middleware", "CDN", "static", "assets", "bundle", "minify", "obfuscate", "version"]
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "CDN",
+    "static",
+    "assets",
+    "bundle",
+    "minify",
+    "obfuscate",
+    "version"
+  ]
 }
