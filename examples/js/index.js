@@ -37,6 +37,9 @@ sa = exstatic.createAsset(
 // get an express application
 app = express();
 
+// gzip the output
+app.use(express.compress());
+
 // use the exstatic middleware
 app.use(exstatic.middleware);
 

@@ -38,6 +38,9 @@ app.engine('html', consolidate.hogan);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
+// gzip the output
+app.use(express.compress());
+
 // use the exstatic middleware
 app.use(exstatic.middleware);
 
