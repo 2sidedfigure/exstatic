@@ -15,11 +15,11 @@ conf = {
 
 // load and configure exstatic
 // normally, require('exstatic')(conf)
-exstatic = require('../../lib/StaticAssetManager')(conf),
+exstatic = require('../../lib/AssetManager')(conf),
 
 // register the static asset handler
 sa = exstatic.createAsset(
-        'Stylus', // the type of asset we're working with
+        'stylus', // the type of asset we're working with
         { // the settings object
             id: 'css_style',
             pattern: '/static/:version/:cacheId/css/style.css', // the path pattern to use

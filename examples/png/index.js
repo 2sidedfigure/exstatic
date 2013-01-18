@@ -15,11 +15,11 @@ conf = {
 
 // load and configure exstatic
 // normally, require('exstatic')(conf)
-exstatic = require('../../lib/StaticAssetManager')(conf),
+exstatic = require('../../lib/AssetManager')(conf),
 
 // register the static asset handler
 sa = exstatic.createAsset(
-        'Png', // the type of asset we're working with
+        'png', // the type of asset we're working with
         { // the settings object
             id: 'img_test',
             pattern: '/static/:version/:cacheId/img/test.png', // the path pattern to use

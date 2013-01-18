@@ -15,11 +15,11 @@ conf = {
 
 // load and configure exstatic
 // normally, require('exstatic')(conf)
-exstatic = require('../../lib/StaticAssetManager')(conf),
+exstatic = require('../../lib/AssetManager')(conf),
 
 // register the static asset handler
 sa1 = exstatic.createAsset(
-    'Png', // the type of asset we're working with
+    'png', // the type of asset we're working with
     { // the settings object
         id: 'img_test',
         pattern: '/static/:version/:cacheId/img/test.png', // the path pattern to use
@@ -30,7 +30,7 @@ sa1 = exstatic.createAsset(
 ),
 
 sa2 = exstatic.createAsset(
-    'Stylus',
+    'stylus',
     {
         id: 'css_style',
         pattern: '/static/:version/:cacheId/css/style.css',
@@ -60,7 +60,7 @@ app.get('/', function(req, res) {
 });
 
 // start the server
-app.listen(8888);
+app.listen(8080);
 
 // exstatic should print a debug line for indicating the URL of the registered asset.
 // have a look by running:

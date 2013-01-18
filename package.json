@@ -5,7 +5,7 @@
   "author": {
     "name": "± ryan"
   },
-  "main": "./lib/StaticAssetManager",
+  "main": "./lib/AssetManager",
   "dependencies": {
     "async": "0.1.x",
     "moment": "1.7.x",

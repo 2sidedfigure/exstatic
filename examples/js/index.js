@@ -14,11 +14,11 @@ conf = {
 
 // load and configure exstatic
 // normally, require('exstatic')(conf)
-exstatic = require('../../lib/StaticAssetManager')(conf),
+exstatic = require('../../lib/AssetManager')(conf),
 
 // register the static asset handler
 sa = exstatic.createAsset(
-        'JS', // the type of asset we're working with
+        'javascript', // the type of asset we're working with
         { // the settings object
             id: 'js_sharedLibs',
             pattern: '/static/:version/:cacheId/js/sharedLibs.js', // the path pattern to use
