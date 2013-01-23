@@ -4,7 +4,7 @@
 body
     background-color #000
     color #fff
-    background-image url(staticAsset('img_test'))
+    background-image url(staticAsset('img/test.png'))
 
     > div
         border-radius 10px

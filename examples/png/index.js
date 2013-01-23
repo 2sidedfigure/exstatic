@@ -21,7 +21,7 @@ exstatic = require('../../lib/AssetManager')(conf),
 sa = exstatic.createAsset(
         'png', // the type of asset we're working with
         { // the settings object
-            id: 'img_test',
+            id: 'img/test.png',
             pattern: '/static/:version/:cacheId/img/test.png', // the path pattern to use
             files: [ // a list of the assets to include in the bundle
                 'assets/test.png'

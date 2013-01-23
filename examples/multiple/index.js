@@ -21,7 +21,7 @@ exstatic = require('../../lib/AssetManager')(conf),
 sa1 = exstatic.createAsset(
     'png', // the type of asset we're working with
     { // the settings object
-        id: 'img_test',
+        id: 'img/test.png',
         pattern: '/static/:version/:cacheId/img/test.png', // the path pattern to use
         files: [ // a list of the assets to include in the bundle
             '../png/assets/test.png'
@@ -32,7 +32,7 @@ sa1 = exstatic.createAsset(
 sa2 = exstatic.createAsset(
     'stylus',
     {
-        id: 'css_style',
+        id: 'css/style.css',
         pattern: '/static/:version/:cacheId/css/style.css',
         files: [
             'assets/style.stylus'

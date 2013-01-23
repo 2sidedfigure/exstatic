@@ -21,7 +21,7 @@ exstatic = require('../../lib/AssetManager')(conf),
 sa = exstatic.createAsset(
         'stylus', // the type of asset we're working with
         { // the settings object
-            id: 'css_style',
+            id: 'css/style.css',
             pattern: '/static/:version/:cacheId/css/style.css', // the path pattern to use
             files: [ // a list of the assets to include in the bundle
                 'assets/style.stylus',

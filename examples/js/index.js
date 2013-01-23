@@ -20,7 +20,7 @@ exstatic = require('../../lib/AssetManager')(conf),
 sa = exstatic.createAsset(
         'javascript', // the type of asset we're working with
         { // the settings object
-            id: 'js_sharedLibs',
+            id: 'js/lib/shared.js',
             pattern: '/static/:version/:cacheId/js/sharedLibs.js', // the path pattern to use
             files: [ // a list of the assets to include in the bundle
                 'assets/jquery.js',
