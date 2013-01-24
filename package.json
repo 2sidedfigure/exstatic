@@ -1,6 +1,6 @@
 {
   "name": "exstatic",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Express middleware to help with the bundling, minifying, obfuscating and versioning of static assets for delivery over a CDN.",
   "author": {
     "name": "± ryan"
@@ -8,6 +8,7 @@
   "main": "./lib/AssetManager",
   "dependencies": {
     "async": "0.1.x",
+    "mmmagic": "0.2.x",
     "moment": "1.7.x",
     "nib": "0.9.x",
     "optipng": "0.0.x",
