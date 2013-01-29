@@ -58,7 +58,9 @@ exstatic can be started with some options to help structure generated URLs.
  - **cachePath**: The path to store rendered file output.
  - **version**: A version string that may be used in the generated URLs.
  - **noCleanup**: Don't delete the files stored in the cache path when the
-application exits.
+   application exits.
+ - **typeSearchPath**: A string or an array of strings of paths that should be
+   searched to find asset type libraries.
 
 ```javascript
 var exstatic = require('exstatic')({
@@ -225,6 +227,9 @@ argument. The following types are currently available:
 Additional types can be created simply by inheriting the `Asset` object defined
 in *lib/Asset.js*. The built-in types (in *lib/assets/*) can help in getting
 started.
+
+To use your own types, make sure the folder they're kept in is included in the
+`typeSearchPath` setting initially passed to exstatic.
 
 ## Examples
 
