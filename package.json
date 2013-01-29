@@ -1,6 +1,6 @@
 {
   "name": "exstatic",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Express middleware to help with the bundling, minifying, obfuscating and versioning of static assets for delivery over a CDN.",
   "author": {
     "name": "± ryan"
