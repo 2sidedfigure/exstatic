@@ -12,27 +12,11 @@ conf = {
     compress: true //could be based on NODE_ENV or a force compression flag
 },
 
-// load and configure exstatic
-// normally, require('exstatic')(conf)
-exstatic = require('../../lib/AssetManager')(conf),
+// normally, require('exstatic')
+exstatic = require('../../lib/AssetManager'),
 
-// register the static asset handler
-sa = exstatic.createAsset(
-        'javascript', // the type of asset we're working with
-        { // the settings object
-            id: 'js/lib/shared.js',
-            pattern: '/static/:version/:cacheId/js/sharedLibs.js', // the path pattern to use
-            files: [ // a list of the assets to include in the bundle
-                'assets/jquery.js',
-                'assets/jquery.form2json.js',
-                'assets/jquery.locus.js',
-                'assets/underscore.js',
-                'assets/backbone.js',
-                'assets/mustache.js',
-                'assets/moment.js'
-            ]
-        }
-    ),
+// get the exstatic static asset manager
+staticAssets = exstatic(conf),
 
 // get an express application
 app = express();
@@ -40,8 +24,26 @@ app = express();
 // gzip the output
 app.use(express.compress());
 
+// register the static asset handler
+staticAssets.createAsset(
+    'javascript', // the type of asset we're working with
+    { // the settings object
+        id: 'js/lib/shared.js',
+        pattern: '/static/:version/:cacheId/js/sharedLibs.js', // the path pattern to use
+        files: [ // a list of the assets to include in the bundle
+            'assets/jquery.js',
+            'assets/jquery.form2json.js',
+            'assets/jquery.locus.js',
+            'assets/underscore.js',
+            'assets/backbone.js',
+            'assets/mustache.js',
+            'assets/moment.js'
+        ]
+    }
+);
+
 // use the exstatic middleware
-app.use(exstatic.middleware);
+app.use(staticAssets.middleware);
 
 // start the server
 app.listen(8080);

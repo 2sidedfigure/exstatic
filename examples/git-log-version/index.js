@@ -7,7 +7,11 @@ express = require('express'),
 consolidate = require('consolidate'),
 exec = require('child_process').exec,
 
-exstatic, app;
+// normally, require('exstatic')
+exstatic = require('../../lib/AssetManager'),
+
+// get an express application
+app = express();
 
 // any number of options can be used here to supply a version
 //
@@ -23,14 +27,14 @@ exec('git log -1 --format=%h', function(err, stdout, stderr) {
             cachePath: __dirname + '/static_cache',
             version: version,
             compress: true //could be based on NODE_ENV or a force compression flag
-        };
+        },
 
-    // load and configure exstatic
-    // normally, require('exstatic')(conf)
-    exstatic = require('../../lib/AssetManager')(conf);
+        // get the exstatic static asset manager
+        staticAssets = exstatic(conf);
+
 
     // register the static asset handler
-    exstatic.createAsset(
+    staticAssets.createAsset(
         'png', // the type of asset we're working with
         { // the settings object
             id: 'img/test.png',
@@ -40,7 +44,7 @@ exec('git log -1 --format=%h', function(err, stdout, stderr) {
             ]
         }
     );
-    exstatic.createAsset(
+    staticAssets.createAsset(
         'stylus',
         {
             id: 'css/style.css',
@@ -51,9 +55,6 @@ exec('git log -1 --format=%h', function(err, stdout, stderr) {
         }
     );
 
-    // get an express application
-    app = express();
-
     // set up the view engine
     app.engine('html', consolidate.hogan);
     app.set('view engine', 'html');
@@ -63,7 +64,7 @@ exec('git log -1 --format=%h', function(err, stdout, stderr) {
     app.use(express.compress());
 
     // use the exstatic middleware
-    app.use(exstatic.middleware);
+    app.use(staticAssets.middleware);
 
     // handler for the index
     app.get('/', function(req, res) {

@@ -14,15 +14,16 @@ $ npm install exstatic
 ```javascript
 var
 express = require('express'),
-exstatic = require('exstatic')(),
+exstatic = require('exstatic'),
+staticAssets = exstatic(),
 app = express();
 
-exstatic.createAssetsFromDirectory(
+staticAssets.createAssetsFromDirectory(
     '/static/:version/:dirname/:basename.:cacheId:extname',
     __dirname + '/public'
     );
 
-app.use(exstatic.middleware);
+app.use(staticAssets.middleware);
 
 app.listen(80);
 ```
@@ -63,11 +64,12 @@ exstatic can be started with some options to help structure generated URLs.
    searched to find asset type libraries.
 
 ```javascript
-var exstatic = require('exstatic')({
-                    host: 'http://example.com',
-                    cachePath: __dirname + '/static_cache',
-                    version: 'v1'
-                });
+var exstatic = require('exstatic')
+    staticAssets = exstatic({
+                        host: 'http://example.com',
+                        cachePath: __dirname + '/static_cache',
+                        version: 'v1'
+                    });
 ```
 
 ### Specifying Assets
@@ -98,7 +100,7 @@ Creates versioned asset URLs from the contents of one or more directories.
 **Example**
 
 ```javascript
-exstatic.createAssetsFromDirectory(
+staticAssets.createAssetsFromDirectory(
     '/static/:version/:dirname/:cacheId/:basename:extname',
     [
         './public/foo',
@@ -143,7 +145,7 @@ Creates a single asset to be served with the specified settings.
 **Example**
 
 ```javascript
-exstatic.createAsset(
+staticAssets.createAsset(
     'javascript',
     {
         id: 'js/lib.js',
@@ -168,13 +170,14 @@ Express application:
 ```javascript
 var
 express = require('express'),
-exstatic = require('exstatic')(),
+exstatic = require('exstatic')
+staticAssets = exstatic(),
 app = express();
 
 // assets get defined here
 // express configuration gets started here
 
-app.use(exstatic.middleware);
+app.use(staticAssets.middleware);
 
 app.listen(80);
 ```

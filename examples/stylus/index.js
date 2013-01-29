@@ -14,21 +14,11 @@ conf = {
 },
 
 // load and configure exstatic
-// normally, require('exstatic')(conf)
-exstatic = require('../../lib/AssetManager')(conf),
+// normally, require('exstatic')
+exstatic = require('../../lib/AssetManager'),
 
-// register the static asset handler
-sa = exstatic.createAsset(
-        'stylus', // the type of asset we're working with
-        { // the settings object
-            id: 'css/style.css',
-            pattern: '/static/:version/:cacheId/css/style.css', // the path pattern to use
-            files: [ // a list of the assets to include in the bundle
-                'assets/style.stylus',
-                'assets/addtl.stylus'
-            ]
-        }
-    ),
+// get the exstatic static asset manager
+staticAssets = exstatic(conf),
 
 // get an express application
 app = express();
@@ -41,8 +31,21 @@ app.set('views', __dirname + '/views');
 // gzip the output
 app.use(express.compress());
 
+// register the static asset handler
+staticAssets.createAsset(
+    'stylus', // the type of asset we're working with
+    { // the settings object
+        id: 'css/style.css',
+        pattern: '/static/:version/:cacheId/css/style.css', // the path pattern to use
+        files: [ // a list of the assets to include in the bundle
+            'assets/style.stylus',
+            'assets/addtl.stylus'
+        ]
+    }
+);
+
 // use the exstatic middleware
-app.use(exstatic.middleware);
+app.use(staticAssets.middleware);
 
 // handler for the index
 app.get('/', function(req, res) {

@@ -14,20 +14,22 @@ conf = {
     compress: true //could be based on NODE_ENV or a force compression flag
 },
 
-// load and configure exstatic
-// normally, require('exstatic')(conf)
-exstatic = require('../../lib/AssetManager')(conf),
+// normally, require('exstatic')
+exstatic = require('../../lib/AssetManager'),
+
+// get the exstatic static asset manager
+staticAssets = exstatic(conf),
 
 // get an express application
 app = express();
 
 // register the static asset handler
-exstatic.createAssetsFromDirectory(
+staticAssets.createAssetsFromDirectory(
     '/static/:version/:dirname/:basename.:cacheId.css', // the path pattern to use
     '../stylus/assets' // a string or an array of folders of assets to be served
 );
 
-exstatic.createAssetsFromDirectory(
+staticAssets.createAssetsFromDirectory(
     '/static/:version/:dirname/:basename.:cacheId:extname', // the path pattern to use
     [
         '../js/assets',
@@ -39,7 +41,7 @@ exstatic.createAssetsFromDirectory(
 app.use(express.compress());
 
 // use the exstatic middleware
-app.use(exstatic.middleware);
+app.use(staticAssets.middleware);
 
 // start the server
 app.listen(8080);
