@@ -226,4 +226,15 @@ Additional types can be created simply by inheriting the `Asset` object defined
 in *lib/Asset.js*. The built-in types (in *lib/assets/*) can help in getting
 started.
 
+## Examples
 
+Examples are available with the git repository. Each requires Express v3.x, and
+should be run from within it's own directory.
+
+Assuming express is installed and accessible from where `git clone` is run:
+
+```
+$ git clone git@github.com:2sidedfigure/exstatic.git
+$ cd exstatic/examples/js
+$ node index.js
+```
