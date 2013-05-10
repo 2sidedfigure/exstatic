@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>exstatic Stylus example</title>
+
+        <link rel="stylesheet" type="text/css" href="{{#staticAssets}}css/style.css{{/staticAssets}}" />
+    </head>
+
+    <body>
+        <div>
+            <h1>exstatic</h1>
+        </div>
+
+        {{#jquery}}
+        <h2>Using jQuery</h2>
+        {{/jquery}}
+        {{^jquery}}
+        <h2>Using Zepto</h2>
+        {{/jquery}}
+
+        <script type="text/javascript" src="{{#staticAssets}}js/lib.js{{/staticAssets}}"></script>
+    </body>
+</html>
