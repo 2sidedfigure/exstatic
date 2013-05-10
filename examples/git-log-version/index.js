@@ -50,7 +50,7 @@ exec('git log -1 --format=%h', function(err, stdout, stderr) {
             id: 'css/style.css',
             pattern: '/static/:version/:cacheId/css/style.css',
             files: [
-                '../multiple/assets/style.stylus'
+                '../multiple/assets/style.styl'
             ]
         }
     );

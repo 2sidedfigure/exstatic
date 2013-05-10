@@ -38,8 +38,8 @@ staticAssets.createAsset(
         id: 'css/style.css',
         pattern: '/static/:version/:cacheId/css/style.css', // the path pattern to use
         files: [ // a list of the assets to include in the bundle
-            'assets/style.stylus',
-            'assets/addtl.stylus'
+            'assets/style.styl',
+            'assets/addtl.styl'
         ]
     }
 );

@@ -48,7 +48,7 @@ staticAssets.createAsset(
         id: 'css/style.css',
         pattern: '/static/:version/:cacheId/css/style.css',
         files: [
-            'assets/style.stylus'
+            'assets/style.styl'
         ]
     }
 );
