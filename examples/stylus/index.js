@@ -37,6 +37,9 @@ staticAssets.createAsset(
     { // the settings object
         id: 'css/style.css',
         pattern: '/static/:version/:cacheId/css/style.css', // the path pattern to use
+        imports: [
+            'assets/color.styl'
+        ],
         files: [ // a list of the assets to include in the bundle
             'assets/style.styl',
             'assets/addtl.styl'
