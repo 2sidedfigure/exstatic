@@ -37,7 +37,7 @@ staticAssets.createAsset(
     { // the settings object
         id: 'css/style.css',
         pattern: '/static/:version/:cacheId/css/style.css', // the path pattern to use
-        imports: [
+        imports: [ // any number of stylus files to include via an @import in each of the files in the files array
             'assets/color.styl'
         ],
         files: [ // a list of the assets to include in the bundle
@@ -57,8 +57,3 @@ app.get('/', function(req, res) {
 
 // start the server
 app.listen(8080);
-
-// exstatic should print a debug line for indicating the URL of the registered asset.
-// have a look by running:
-//
-// $ curl localhost:8080/<url_from_debug>

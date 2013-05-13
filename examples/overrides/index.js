@@ -32,8 +32,10 @@ app.set('views', __dirname + '/views');
 // gzip the output
 app.use(express.compress());
 
-// register the static asset handler
-var css = staticAssets.createAsset(
+// register the static asset handlers
+var
+
+css = staticAssets.createAsset(
     'stylus', // the type of asset we're working with
     { // the settings object
         id: 'css/style.css',
@@ -47,21 +49,9 @@ var css = staticAssets.createAsset(
             'assets/logo.styl'
         ]
     }
-);
+),
 
-css.on('variantInit', function(variant, cb) {
-    variant.imports = [].concat(variant.asset.settings.imports);
-
-    var dir = variant.params.jquery
-        ? 'jquery'
-        : 'zepto';
-
-    variant.imports.push('assets/' + dir + '/color.styl');
-
-    cb();
-});
-
-var js = staticAssets.createAsset(
+js = staticAssets.createAsset(
     'javascript',
     {
         id: 'js/lib.js',
@@ -76,7 +66,32 @@ var js = staticAssets.createAsset(
             '../js/assets/moment.js'
         ]
     }
+),
+
+logo = staticAssets.createAsset(
+    'png',
+    {
+        id: 'img/logo.png',
+        pattern: '/static/:version/:cacheId/:jquery/img/logo.png',
+        files: [
+            'assets/jquery/logo.png'
+        ]
+    }
 );
+
+// set up asset event handlers to modify the assets based on
+// passed parameters
+css.on('variantInit', function(variant, cb) {
+    variant.imports = [].concat(variant.asset.settings.imports);
+
+    var dir = variant.params.jquery
+        ? 'jquery'
+        : 'zepto';
+
+    variant.imports.push('assets/' + dir + '/color.styl');
+
+    cb();
+});
 
 js.on('variantInit', function(variant, cb) {
     if (variant.params.jquery) return cb();
@@ -89,17 +104,6 @@ js.on('variantInit', function(variant, cb) {
 
     cb();
 });
-
-var logo = staticAssets.createAsset(
-    'png',
-    {
-        id: 'img/logo.png',
-        pattern: '/static/:version/:cacheId/:jquery/img/logo.png',
-        files: [
-            'assets/jquery/logo.png'
-        ]
-    }
-);
 
 logo.on('variantInit', function(variant, cb) {
     if (variant.params.jquery) return cb();
@@ -123,8 +127,3 @@ app.get('/', function(req, res) {
 
 // start the server
 app.listen(8080);
-
-// exstatic should print a debug line for indicating the URL of the registered asset.
-// have a look by running:
-//
-// $ curl localhost:8080/<url_from_debug>

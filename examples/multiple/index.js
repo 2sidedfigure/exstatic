@@ -47,8 +47,11 @@ staticAssets.createAsset(
     {
         id: 'css/style.css',
         pattern: '/static/:version/:cacheId/css/style.css',
+        imports: [
+            '../stylus/assets/color.styl'
+        ],
         files: [
-            'assets/style.styl'
+            '../stylus/assets/style.styl'
         ]
     }
 );
@@ -63,8 +66,3 @@ app.get('/', function(req, res) {
 
 // start the server
 app.listen(8080);
-
-// exstatic should print a debug line for indicating the URL of the registered asset.
-// have a look by running:
-//
-// $ curl localhost:8080/<url_from_debug>
