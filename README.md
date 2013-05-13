@@ -130,17 +130,10 @@ Creates a single asset to be served with the specified settings.
         - **:cacheId**: A truncated MD5 hash of the file contents.
 
     - **files** *(required)*: An array of strings of file paths to be
-      preprocessed and/or compressed per the **type** argument, and be
+      processed and/or compressed per the **type** argument, and be
       concatenated into a single file.
-    - **preprocess**: An optional function to allow further preprocessing of a
-      file, after any normal preprocessing done by that **type**, before being
-      compressed and concatenated with the other members of the **files**
-      array. The function receives three arguments: the path of the current
-      file, the contents of the current file (a string if a text file, a buffer
-      if binary), and a callback. The callback should be invoked when the work
-      of the function is complete. The callback accepts two arguments: an error
-      object (null if no error occurred) and the result of the processing of
-      the file contents.
+
+   *Note*: Some asset types may define additional settings.
 
 **Example**
 
