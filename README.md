@@ -123,7 +123,7 @@ Creates a single asset to be served with the specified settings.
     - **pattern** *(required)*: A pattern string to build the asset URL.
       Variables in the pattern are preceded by a colon, just like path
       parameters in [Express routing](http://expressjs.com/api.html#app.VERB).
-      The available variables are:
+      *Exstatic* exposes the following variables:
 
         - **:version**: The version string specified in the startup options
           (defaults to a unix timestamp of when exstatic is `require`d).
@@ -199,12 +199,18 @@ To render the CDN-friendly asset URL from the asset defined in the above
 </html>
 ```
 
-## Asset Types
+## Assets
+
+Assets are the fundamental building block of *exstatic*. They are the
+definitions of static content your application will serve, with the help of
+*exstatic*'s [middleware](#middleware).
+
+### Asset Types
 
 When creating assets using `createAsset`, a type must be specified as the first
 argument. The following types are currently available:
 
-### Built-in
+#### Built-in
 
  - **javascript**: The *javascript* type uses
    [UglifyJS](https://github.com/mishoo/UglifyJS) to obfuscate and compress the
@@ -218,7 +224,7 @@ argument. The following types are currently available:
    [node-optipng](https://github.com/papandreou/node-optipng) on the file and
    serve the compressed version.
 
-### Additional Types
+#### Additional Types
 
 Additional types can be created simply by inheriting the `Asset` object defined
 in *lib/Asset.js*. The built-in types (in *lib/assets/*) can help in getting
@@ -226,6 +232,76 @@ started.
 
 To use your own types, make sure the folder they're kept in is included in the
 `typeSearchPath` setting initially passed to exstatic.
+
+### Asset Variations
+
+An individual asset may have multiple variations. Asset variations are
+distinguished by the values used for variables in the Asset's pattern, which
+defines a unique URL for the variation. *Exstatic* defines and assigns values
+for some pattern variables by default, namely, `version` and `cacheId`.
+Additional pattern variables can be defined by a colon prefixed identifier in
+the Asset's pattern string (e.g., `:myvariable`), which can then be used to
+create additional variations of an Asset with the help of event handlers.
+
+When an Asset's pattern is matched for an incoming request, but no matching
+variation exists to create a response, a new Asset variation is created. The
+new variation then enters the *render pipeline* to build a response. The
+*render pipeline* is a procedure generally represented by the following steps:
+
+ 1. The new Asset variation is initialized.
+ 2. Each of the component files of the Asset variation are processed as defined
+    by the Asset type.
+ 3. Once all the files have been processed, the variation is cached and sent as
+    a response.
+
+#### Events
+
+During the render process, the Asset variation maintains a cache of processed
+output of each file. Events are the means to modify the Asset variation and the
+output at various points of the *render pipeline*.
+
+An Asset may emit the following events when building a new variation:
+
+ - **variantInit**: emitted when a URL has no existing matching variations, and
+   a new variation is initialized to build a response.
+ - **variantPreRender**: emitted just before the process of rendering the Asset
+   variation begins.
+ - **variantPreRenderFile**: emitted before the process of rendering an
+   individual file comprising the asset.
+ - **variantRenderFile**: emitted after prerendering and just before rendering
+   an individual file comprising the asset.
+ - **variantPostRenderFIle**: emitted when rendering an individual file
+   comprising the asset is complete.
+ - **variantPostRender**: emitted when all files comprising the asset have
+   completed rendering.
+
+##### Handlers for *variantInit*, *variantPreRender*, and *variantPostRender*
+
+**Arguments**
+
+ - **variant**: a reference to the Asset variation.
+ - **callback**: a function that when called, signals the *render pipeline* to
+   resume processing the Asset variation. An error may be raised by passing an
+   expression that evaluates to `true` as the first argument.
+
+##### Handlers for *variantPreRenderFile*, *variantRenderFile*, and
+      *variantPostRenderFile*
+
+**Arguments**
+
+ - **variant**: a reference to the Asset variation.
+ - **file**: a string of the path of the file currently being processed. This
+   can be used to get/set the current state of the output of the file using the
+   following methods of the Asset variation:
+
+   - **getRenderCache(file)**: retrieve the current state of the output for the
+     given file.
+   - **setRenderCache(file, contents)**: set the current state of the output
+     for the given file.
+
+ - **callback**: a function that when called, signals the *render pipeline* to
+   resume processing the Asset variation. An error may be raised by passing an
+   expression that evaluates to `true` as the first argument.
 
 ## Examples
 
@@ -265,4 +341,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
