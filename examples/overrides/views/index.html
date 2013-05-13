@@ -9,8 +9,15 @@
     <body>
         <div>
             <h1>exstatic</h1>
-
-            <img src="{{#staticAssets}}img/test.png{{/staticAssets}}" alt="A static asset!" />
         </div>
+
+        {{#jquery}}
+        <h2>Using jQuery</h2>
+        {{/jquery}}
+        {{^jquery}}
+        <h2>Using Zepto</h2>
+        {{/jquery}}
+
+        <script type="text/javascript" src="{{#staticAssets}}js/lib.js{{/staticAssets}}"></script>
     </body>
 </html>

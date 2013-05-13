@@ -50,7 +50,7 @@ exec('git log -1 --format=%h', function(err, stdout, stderr) {
             id: 'css/style.css',
             pattern: '/static/:version/:cacheId/css/style.css',
             files: [
-                '../multiple/assets/style.stylus'
+                '../stylus/assets/style.styl'
             ]
         }
     );
@@ -73,9 +73,4 @@ exec('git log -1 --format=%h', function(err, stdout, stderr) {
 
     // start the server
     app.listen(8080);
-
-    // exstatic should print a debug line for indicating the URL of the registered asset.
-    // have a look by running:
-    //
-    // $ curl localhost:8080/<url_from_debug>
 });

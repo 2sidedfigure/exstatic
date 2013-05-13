@@ -5,7 +5,6 @@ var
 // required modules
 express = require('express'),
 consolidate = require('consolidate'),
-exec = require('child_process').exec,
 
 // exstatic configuration object
 conf = {
@@ -45,8 +44,3 @@ app.use(staticAssets.middleware);
 
 // start the server
 app.listen(8080);
-
-// exstatic should print a debug line for indicating the URL of the registered asset.
-// have a look by running:
-//
-// $ curl localhost:8080/<url_from_debug>

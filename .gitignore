@@ -4,3 +4,4 @@ npm-debug.log
 
 node_modules
 examples/*/static_cache
+examples/test
